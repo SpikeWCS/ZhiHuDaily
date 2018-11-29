@@ -17,7 +17,7 @@ class ViewController: UIViewController {
     // 菜单页当前状态
     var currentState = MenuState.Collapsed {
         didSet {
-            //菜单展开的时候，给主页面边缘添加阴影
+            // 菜单展开的时候，给主页面边缘添加阴影
             let shouldShowShadow = currentState != .Collapsed
             showShadowForMainViewController(shouldShowShadow: shouldShowShadow)
         }
@@ -38,13 +38,13 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //初始化主视图
+        // 初始化主视图
         mainNavigationController = UIStoryboard(name: "Main", bundle: nil)
             .instantiateViewController(withIdentifier: "mainNavigaiton")
             as? UINavigationController
         view.addSubview(mainNavigationController.view)
         
-        //指定Navigation Bar左侧按钮的事件
+        // 指定Navigation Bar左侧按钮的事件
         mainViewController = mainNavigationController.viewControllers.first
             as? MainViewController
 
@@ -56,18 +56,18 @@ class ViewController: UIViewController {
 //        mainViewController.navigationItem.leftBarButtonItem?.image = UIImage(named: "daohanglan")
 //        mainViewController.navigationItem.leftBarButtonItem?.action = #selector(showMenu)
 //
-        //添加拖动手势
+        // 添加拖动手势
         let panGestureRecognizer = UIPanGestureRecognizer(target: self,
                                                           action: #selector(handlePanGesture(_:)))
         mainNavigationController.view.addGestureRecognizer(panGestureRecognizer)
         
-        //单击收起菜单手势
+        // 单击收起菜单手势
         let tapGestureRecognizer = UITapGestureRecognizer(target: self,
                                                           action: #selector(handleTapGesture))
         mainNavigationController.view.addGestureRecognizer(tapGestureRecognizer)
     }
     
-    //导航栏左侧按钮事件响应
+    // 导航栏左侧按钮事件响应
     @objc func showMenu() {
         //如果菜单是展开的则会收起，否则就展开
         if currentState == .Expanded {
@@ -78,7 +78,7 @@ class ViewController: UIViewController {
         }
     }
     
-    //拖动手势响应
+    // 拖动手势响应
     @objc func handlePanGesture(_ recognizer: UIPanGestureRecognizer) {
         
         switch(recognizer.state) {
@@ -97,7 +97,7 @@ class ViewController: UIViewController {
             let screenWidth = view.bounds.size.width
             var centerX = recognizer.view!.center.x +
                 recognizer.translation(in: view).x
-            //页面滑到最左侧的话就不许要继续往左移动
+            // 页面滑到最左侧的话就不许要继续往左移动
             if centerX < screenWidth/2 { centerX = screenWidth/2 }
             
             // 计算缩放比例
@@ -108,16 +108,16 @@ class ViewController: UIViewController {
             // 执行视差特效
             blackCover?.alpha = (proportion - minProportion) / (1 - minProportion)
             
-            //主页面滑到最左侧的话就不许要继续往左移动
+            // 主页面滑到最左侧的话就不许要继续往左移动
             recognizer.view!.center.x = centerX
             recognizer.setTranslation(.zero, in: view)
-            //缩放主页面
+            // 缩放主页面
             recognizer.view!.transform = CGAffineTransform.identity
                 .scaledBy(x: proportion, y: proportion)
             
         // 如果滑动结束
         case .ended:
-            //根据页面滑动是否过半，判断后面是自动展开还是收缩
+            // 根据页面滑动是否过半，判断后面是自动展开还是收缩
             let hasMovedhanHalfway = recognizer.view!.center.x > view.bounds.size.width
             animateMainView(shouldExpand: hasMovedhanHalfway)
         default:
@@ -125,9 +125,9 @@ class ViewController: UIViewController {
         }
     }
     
-    //单击手势响应
+    // 单击手势响应
     @objc func handleTapGesture() {
-        //如果菜单是展开的点击主页部分则会收起
+        // 如果菜单是展开的点击主页部分则会收起
         if currentState == .Expanded {
             animateMainView(shouldExpand: false)
         }
@@ -155,7 +155,7 @@ class ViewController: UIViewController {
         }
     }
     
-    //主页自动展开、收起动画
+    // 主页自动展开、收起动画
     func animateMainView(shouldExpand: Bool) {
         // 如果是用来展开
         if (shouldExpand) {
@@ -187,7 +187,7 @@ class ViewController: UIViewController {
         }
     }
     
-    //主页移动动画、黑色遮罩层动画
+    // 主页移动动画、黑色遮罩层动画
     func doTheAnimate(mainPosition: CGFloat, mainProportion: CGFloat,
                       blackCoverAlpha: CGFloat, completion: ((Bool) -> Void)! = nil) {
         //usingSpringWithDamping：1.0表示没有弹簧震动动画
@@ -201,7 +201,7 @@ class ViewController: UIViewController {
         }, completion: completion)
     }
     
-    //给主页面边缘添加、取消阴影
+    // 给主页面边缘添加、取消阴影
     func showShadowForMainViewController(shouldShowShadow: Bool) {
         if (shouldShowShadow) {
             mainNavigationController.view.layer.shadowOpacity = 0.8
