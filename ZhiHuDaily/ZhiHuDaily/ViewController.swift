@@ -1,10 +1,3 @@
-//
-//  ViewController.swift
-//  hangge_1035
-//
-//  Created by hangge on 2017/12/12.
-//  Copyright © 2017年 hangge. All rights reserved.
-//
 
 import UIKit
 struct Device {
@@ -57,6 +50,7 @@ class ViewController: UIViewController {
 
  //       leftBarBtn = UIBarButtonItem(image: UIImage(named: "daohanglan"), style: .done, target: self, action: #selector(showMenu))
         leftBarBtn = UIBarButtonItem(title: "menu", style: .plain, target: self, action: #selector(showMenu))
+        leftBarBtn.tintColor = .black
         
         mainViewController.navigationItem.leftBarButtonItem = leftBarBtn
 //        mainViewController.navigationItem.leftBarButtonItem?.image = UIImage(named: "daohanglan")
