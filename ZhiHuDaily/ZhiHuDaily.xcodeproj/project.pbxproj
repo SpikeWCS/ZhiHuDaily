@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		549789FA4E9312A305BEE160 /* Pods_ZhiHuDaily.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B36E44028F9530D319218277 /* Pods_ZhiHuDaily.framework */; };
 		714594437C079EC821118A8F /* Pods_ZhiHuDailyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B72879A46B8E50750C2DB22C /* Pods_ZhiHuDailyTests.framework */; };
 		74A2DC3221AEB8EA002822B4 /* Comments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A2DC3121AEB8EA002822B4 /* Comments.swift */; };
 		74A2DC3421AEBD19002822B4 /* CommentsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A2DC3321AEBD19002822B4 /* CommentsController.swift */; };
@@ -96,6 +97,7 @@
 				74EECA5421A2C4930042E970 /* Alamofire.framework in Frameworks */,
 				74EECA5821A2C4930042E970 /* SDWebImage.framework in Frameworks */,
 				74EECA5621A2C4930042E970 /* MJRefresh.framework in Frameworks */,
+				549789FA4E9312A305BEE160 /* Pods_ZhiHuDaily.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,6 +246,7 @@
 				74D59D24219589F700A9BE4E /* Frameworks */,
 				74D59D25219589F700A9BE4E /* Resources */,
 				E7844A7D69D625AD663A330D /* [CP] Embed Pods Frameworks */,
+				7424BA2321B2B60E00F874F7 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -407,6 +410,23 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		7424BA2321B2B60E00F874F7 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#${PODS_ROOT}/SwiftLint/swiftlint\n";
 		};
 		B30116CB18FC859A826859C4 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

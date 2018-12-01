@@ -90,26 +90,23 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
             topNewsView?.frame = rect!
         }
         let sectionHeaderHeight: CGFloat = 90
-        if(scrollView.contentOffset.y<=sectionHeaderHeight&&scrollView.contentOffset.y>=0) {
+        if(scrollView.contentOffset.y <= sectionHeaderHeight&&scrollView.contentOffset.y >= 0) {
             scrollView.contentInset = UIEdgeInsets(top: -scrollView.contentOffset.y, left: 0, bottom: 0, right: 0)
-        }
-        else if(scrollView.contentOffset.y>=sectionHeaderHeight) {
+        }else if(scrollView.contentOffset.y>=sectionHeaderHeight) {
             scrollView.contentInset = UIEdgeInsets(top: -sectionHeaderHeight, left: 0, bottom: 0, right: 0)
         }
-        
-        // MARK: -导航栏渐变
+        // MARK: - 导航栏渐变
         //获取ScrollView的偏移量y
         let offsetY = scrollView.contentOffset.y
         //自己设置需要滚动到哪里可以完全显示导航栏
-        let ScrollValue:CGFloat = 84.0
+        let scrollValue: CGFloat = 84.0
         //将偏移量除以需要滚动的量,可以得到需要显示的透明度
-        var alpha = offsetY / ScrollValue
-        if alpha >= 1{
+        var alpha = offsetY / scrollValue
+        if alpha >= 1 {
             alpha = 1
         }
         //将透明度赋值给第一个View即可
         self.navigationController?.navigationBar.subviews[0].alpha = alpha
-        
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
        self.navigationController?.pushViewController(NewsDetailController(), animated: true)

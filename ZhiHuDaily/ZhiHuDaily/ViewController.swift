@@ -15,10 +15,10 @@ class ViewController: UIViewController {
     var menuViewController:MenuViewController?
     
     // 菜单页当前状态
-    var currentState = MenuState.Collapsed {
+    var currentState = MenuState.collapsed {
         didSet {
             // 菜单展开的时候，给主页面边缘添加阴影
-            let shouldShowShadow = currentState != .Collapsed
+            let shouldShowShadow = currentState != .collapsed
             showShadowForMainViewController(shouldShowShadow: shouldShowShadow)
         }
     }
@@ -70,7 +70,7 @@ class ViewController: UIViewController {
     // 导航栏左侧按钮事件响应
     @objc func showMenu() {
         //如果菜单是展开的则会收起，否则就展开
-        if currentState == .Expanded {
+        if currentState == .expanded {
             animateMainView(shouldExpand: false)
         }else {
             addMenuViewController()
@@ -87,8 +87,8 @@ class ViewController: UIViewController {
             // 判断拖动方向
             let dragFromLeftToRight = (recognizer.velocity(in: view).x > 0)
             // 如果刚刚开始滑动的时候还处于主页面，从左向右滑动加入侧面菜单
-            if (currentState == .Collapsed && dragFromLeftToRight) {
-                currentState = .Expanding
+            if (currentState == .collapsed && dragFromLeftToRight) {
+                currentState = .expanding
                 addMenuViewController()
             }
             
@@ -128,7 +128,7 @@ class ViewController: UIViewController {
     // 单击手势响应
     @objc func handleTapGesture() {
         // 如果菜单是展开的点击主页部分则会收起
-        if currentState == .Expanded {
+        if currentState == .expanded {
             animateMainView(shouldExpand: false)
         }
     }
@@ -160,7 +160,7 @@ class ViewController: UIViewController {
         // 如果是用来展开
         if (shouldExpand) {
             // 更新当前状态
-            currentState = .Expanded
+            currentState = .expanded
             // 动画
             let mainPosition = view.bounds.size.width * (1+minProportion/2)
                 - menuViewExpandedOffset
@@ -174,7 +174,7 @@ class ViewController: UIViewController {
                          blackCoverAlpha: 1) {
                 finished in
                 // 动画结束之后更新状态
-                self.currentState = .Collapsed
+                self.currentState = .collapsed
                 // 移除左侧视图
                 self.menuViewController?.view.removeFromSuperview()
                 // 释放内存
@@ -217,9 +217,9 @@ class ViewController: UIViewController {
 
 // 菜单状态枚举
 enum MenuState {
-    case Collapsed  // 未显示(收起)
-    case Expanding   // 展开中
-    case Expanded   // 展开
+    case collapsed  // 未显示(收起)
+    case expanding   // 展开中
+    case expanded   // 展开
 }
 
 

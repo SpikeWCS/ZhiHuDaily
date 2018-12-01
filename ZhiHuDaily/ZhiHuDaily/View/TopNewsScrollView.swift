@@ -21,25 +21,19 @@ class TopNewsScrollView: UIView, UIScrollViewDelegate {
     }
     // 每张图的标题
     var contentArray: NSArray? = ["","","","","","",""]
-    typealias myBlock = (_ nums:Int)->Void
+    typealias MyBlock = (_ nums: Int) -> Void
     
-    var block1:myBlock?
-    
-    func addButtonBlock(block: @escaping myBlock){
+    var block1:MyBlock?
+    func addButtonBlock(block: @escaping MyBlock) {
         block1 = block
     }
     
     var scrollView: UIScrollView = UIScrollView()
     let pageView = UIPageControl()
-    var timer:Timer?
+    var timer: Timer?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-//        LastestNewsHelper.getLastestNews(success: { lastestNews in
-//            self.lastestNew = lastestNews
-//        }) { _ in
-//
-//        }
         self.addMainView()
     }
     init(frame: CGRect, lastestNews: LastestNews) {
@@ -48,7 +42,7 @@ class TopNewsScrollView: UIView, UIScrollViewDelegate {
         self.addMainView()
     }
     
-    fileprivate func addMainView(){
+    fileprivate func addMainView() {
         
         self.backgroundColor = UIColor.gray
         scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height))
@@ -59,7 +53,8 @@ class TopNewsScrollView: UIView, UIScrollViewDelegate {
         scrollView.showsHorizontalScrollIndicator = false
         for index in 0 ..< imageArray.count {
             let imageView = UIImageView()
-            imageView.frame = CGRect(x: CGFloat(index)*self.frame.width, y: 64, width: scrollView.frame.width, height: scrollView.frame.height)
+            imageView.frame = CGRect(x: CGFloat(index)*self.frame.width, y: 64, width:
+                scrollView.frame.width, height: scrollView.frame.height)
             // newsImageView.sd_setImage(with: URL(string: lastestNews.stories[index].images![0]))
             imageView.image = UIImage(named: String(describing: imageArray[index]))
             
@@ -71,63 +66,57 @@ class TopNewsScrollView: UIView, UIScrollViewDelegate {
 //            }else {
 //                imageView.sd_setImage(with: URL(string: imageArray[0]))
 //            }
-            
             // 一个布尔值，它决定了是否用户触发的事件被该视图对象忽略和把该视图对象从事件响应队列中移除。
             imageView.isUserInteractionEnabled = true
             imageView.tag = index+10
             //imageView.contentMode = .scaleToFill
-            let tapClick: UITapGestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(imageClick))
+            let tapClick: UITapGestureRecognizer = UITapGestureRecognizer.init(target:
+                self, action: #selector(imageClick))
             imageView.addGestureRecognizer(tapClick)
             scrollView.addSubview(imageView)
-            
             // 为头部新闻图片添加标题
             let lable = UILabel()
             lable.frame = CGRect(x: 20, y: self.frame.height-20, width: self.frame.width, height: 80)
-            lable.text = (contentArray![index] as! String)
+            lable.text = (contentArray![index])
+            //lable.text = (contentArray![index] as! String)
             imageView.addSubview(lable)
         }
         self.addSubview(scrollView)
-        
         pageView.frame = CGRect(x: 0, y: self.frame.height-20, width: self.frame.width, height: 20)
         pageView.numberOfPages = 5
         self.addSubview(pageView)
         timer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(timerChange), userInfo: nil, repeats: true)
     }
-    
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         timer?.fireDate = NSDate.distantFuture
     }
-    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         timer?.fireDate = NSDate(timeIntervalSinceNow: 3.0) as Date
         let floatX = scrollView.contentOffset.x
-        if(floatX == self.frame.width*6) {
+        if floatX == self.frame.width*6 {
             scrollView.contentOffset = CGPoint(x: self.frame.width, y: 0)
             //imageIndex = 0
             pageView.currentPage = 0
-        }else if(floatX == 0) {
+        } else if floatX == 0 {
             scrollView.contentOffset = CGPoint(x: self.frame.width*CGFloat(4), y: 0)
             //imageIndex = 4
             pageView.currentPage = 4
-        }else {
+        } else {
             let offset = (scrollView.contentOffset.x + UIScreen.main.bounds.width/2)/UIScreen.main.bounds.width
             pageView.currentPage = Int(offset) - 1
         }
-        
     }
-    
-    @objc func imageClick(){
+    @objc func imageClick() {
         block1?(pageView.currentPage)
     }
-    
-    @objc func timerChange(){
+    @objc func timerChange() {
         var currentPage = pageView.currentPage
         if currentPage == 4 {
             currentPage = 0
             UIView.animate(withDuration: 0.0, animations: {
                 self.scrollView.contentOffset = CGPoint(x: CGFloat(currentPage+1)*UIScreen.main.bounds.width, y: 0)
             })
-        }else{
+        } else {
             currentPage += 1
             UIView.animate(withDuration: 0.5, animations: {
                 self.scrollView.contentOffset = CGPoint(x: CGFloat(currentPage+1)*UIScreen.main.bounds.width, y: 0)
@@ -136,15 +125,13 @@ class TopNewsScrollView: UIView, UIScrollViewDelegate {
         pageView.currentPage = currentPage
     }
     
-    override var frame: CGRect{
-        didSet(frameNew){
+    override var frame: CGRect {
+        didSet(frameNew) {
             let heightNew = frameNew.size.height-frameNew.origin.y
            // let widthNew = heightNew*frameNew.size.width/frameNew.size.height
             let widthNew = frameNew.size.width
-          //  let image_newX = CGFloat(pageView.currentPage)*frameNew.width + frameNew.origin.y*frameNew.size.width/frameNew.size.height/2
-            let image_newX = CGFloat(pageView.currentPage+1)*frameNew.width
+            // let image_newX = CGFloat(pageView.currentPage+1)*frameNew.width
             scrollView.frame = CGRect(x: 0, y: frameNew.origin.y, width:frame.width, height: heightNew)
-            
             let imageView0 = scrollView.viewWithTag(10)
             let imageView1 = scrollView.viewWithTag(11)
             let imageView2 = scrollView.viewWithTag(12)
