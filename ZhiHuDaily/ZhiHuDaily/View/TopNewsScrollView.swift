@@ -94,11 +94,9 @@ class TopNewsScrollView: UIView, UIScrollViewDelegate {
         let floatX = scrollView.contentOffset.x
         if floatX == self.frame.width*6 {
             scrollView.contentOffset = CGPoint(x: self.frame.width, y: 0)
-            //imageIndex = 0
             pageView.currentPage = 0
         } else if floatX == 0 {
-            scrollView.contentOffset = CGPoint(x: self.frame.width*CGFloat(4), y: 0)
-            //imageIndex = 4
+            scrollView.contentOffset = CGPoint(x: self.frame.width*CGFloat(5), y: 0)
             pageView.currentPage = 4
         } else {
             let offset = (scrollView.contentOffset.x + UIScreen.main.bounds.width/2)/UIScreen.main.bounds.width
