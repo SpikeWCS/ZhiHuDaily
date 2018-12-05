@@ -56,15 +56,16 @@ class TopNewsScrollView: UIView, UIScrollViewDelegate {
             imageView.frame = CGRect(x: CGFloat(index)*self.frame.width, y: 64, width:
                 scrollView.frame.width, height: scrollView.frame.height)
             // newsImageView.sd_setImage(with: URL(string: lastestNews.stories[index].images![0]))
-            //imageView.image = UIImage(named: String(describing: imageArray[index]))
+            imageView.image = UIImage(named: String(describing: imageArray[index]))
             
-            if(index == 0) {
-                imageView.sd_setImage(with: URL(string: lastestNew.topStories[4].image!))
-            }else if(index == 6) {
-                imageView.sd_setImage(with: URL(string: lastestNew.topStories[0].image!))
-            }else {
-                imageView.sd_setImage(with: URL(string: lastestNew.topStories[index-1].image!))
-            }
+//            if(index == 0) {
+//                print(lastestNew)
+//                imageView.sd_setImage(with: URL(string: imageArray[0]))
+//            }else if(index == 6) {
+//                imageView.sd_setImage(with: URL(string: imageArray[0]))
+//            }else {
+//                imageView.sd_setImage(with: URL(string: imageArray[0]))
+//            }
             // 一个布尔值，它决定了是否用户触发的事件被该视图对象忽略和把该视图对象从事件响应队列中移除。
             imageView.isUserInteractionEnabled = true
             imageView.tag = index+10
@@ -76,7 +77,7 @@ class TopNewsScrollView: UIView, UIScrollViewDelegate {
             // 为头部新闻图片添加标题
             let lable = UILabel()
             lable.frame = CGRect(x: 20, y: self.frame.height-20, width: self.frame.width, height: 80)
-            lable.text = ((contentArray![index]) as! String)
+            lable.text = (contentArray![index])
             //lable.text = (contentArray![index] as! String)
             imageView.addSubview(lable)
         }
